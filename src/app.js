@@ -2,6 +2,8 @@ const express = require('express');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
 
+const router = require('./routes');
+
 const app = express();
 app.set('port', 8080);
 
@@ -14,5 +16,8 @@ app.use(compression());
 
 // cookie parser
 app.use(cookieParser());
+
+// app.use('api/v1', router);
+app.use('/api/v1', router);
 
 module.exports = app;
