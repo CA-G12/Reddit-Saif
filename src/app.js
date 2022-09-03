@@ -17,6 +17,9 @@ app.use(compression());
 // cookie parser
 app.use(cookieParser());
 
+// static files
+app.use(express.static('public'));
+
 app.use('/api/v1', router);
 
 module.exports = app;
