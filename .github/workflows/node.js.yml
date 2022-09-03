@@ -18,7 +18,7 @@ jobs:
           POSTGRES_PASSWORD: 123
           POSTGRES_USER: saif2
           POSTGRES_DB: reddit_test
-          POSTGRES_PORT: 5432
+          POSTGRES_PORT: 3000
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -33,7 +33,7 @@ jobs:
 
       - name: Testing Routes
         run: npm test
-
+        
         env:
-          TEST_DB_URL = postgres://saif2:123@localhost:5432/reddit_test
+          TEST_DB_URL: postgres://saif2:123@postgres:3000/reddit_test
           NODE_ENV: test
