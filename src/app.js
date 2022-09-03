@@ -17,7 +17,6 @@ app.use(compression());
 // cookie parser
 app.use(cookieParser());
 
-// app.use('api/v1', router);
 app.use('/api/v1', router);
 
 module.exports = app;
