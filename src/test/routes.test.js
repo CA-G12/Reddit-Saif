@@ -23,7 +23,6 @@ describe('Sign up Router', () => {
         else {
           expect(res.body.msg).toEqual('User added successfully');
           done();
-          
         }
       });
   });
@@ -214,4 +213,176 @@ describe('Sign up Router', () => {
         }
       });
   });
+});
+
+describe('Sing in Router', () => {
+  test('should Logged Successfully', (done) => {
+    supertest(router)
+      .post('/api/v1/sign-in')
+      .send({
+        password: '123456',
+        email: 'saif@gmail.com',
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.body.msg).toBe('Logged successfully');
+          done();
+        }
+      });
+  });
+  test('should return email or password is invalid [email is wrong]', (done) => {
+    supertest(router)
+      .post('/api/v1/sign-in')
+      .send({
+        password: '123456',
+        email: 'said@gmail.com',
+      })
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.body.msg).toBe('Email or password is invalid');
+          done();
+        }
+      });
+  });
+  test('should return email or password is invalid [password is wrong]', (done) => {
+    supertest(router)
+      .post('/api/v1/sign-in')
+      .send({
+        password: '12345678',
+        email: 'saif@gmail.com',
+      })
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.body.msg).toBe('Email or password is invalid');
+          done();
+        }
+      });
+  });
+  test('should return email or password is invalid [password and email are wrong]', (done) => {
+    supertest(router)
+      .post('/api/v1/sign-in')
+      .send({
+        password: '12345678',
+        email: 'sadsaif@gmail.com',
+      })
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.body.msg).toBe('Email or password is invalid');
+          done();
+        }
+      });
+  });
+  test('should return email must be valid', (done) => {
+    supertest(router)
+      .post('/api/v1/sign-in')
+      .send({
+        password: '12345678',
+        email: 'sadsagmail.com',
+      })
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.body.msg).toBe('"email" must be a valid email');
+          done();
+        }
+      });
+  });
+  test('should return password must be valid', (done) => {
+    supertest(router)
+      .post('/api/v1/sign-in')
+      .send({
+        password: '123',
+        email: 'sads@gmail.com',
+      })
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.body.msg).toBe('"password" length must be at least 6 characters long');
+          done();
+        }
+      });
+  });
+  test('should return password required', (done) => {
+    supertest(router)
+      .post('/api/v1/sign-in')
+      .send({
+        email: 'sads@gmail.com',
+      })
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.body.msg).toBe('"password" is required');
+          done();
+        }
+      });
+  });
+  test('should return email required', (done) => {
+    supertest(router)
+      .post('/api/v1/sign-in')
+      .send({
+        password: '1234567',
+      })
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.body.msg).toBe('"email" is required');
+          done();
+        }
+      });
+  });
+  test('should return email can not be empty', (done) => {
+    supertest(router)
+      .post('/api/v1/sign-in')
+      .send({
+        password: '1234567',
+        email: '',
+      })
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.body.msg).toBe('"email" is not allowed to be empty');
+          done();
+        }
+      });
+  });
+  test('should return password can not be empty', (done) => {
+    supertest(router)
+      .post('/api/v1/sign-in')
+      .send({
+        password: '',
+        email: 'saif@gmail.com',
+      })
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .end((err, res) => {
+        if (err) done(err);
+        else {
+          expect(res.body.msg).toBe('"password" is not allowed to be empty');
+          done();
+        }
+      });
+  });
+
 });
