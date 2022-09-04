@@ -16,6 +16,7 @@ CREATE TABLE posts (
     title text not null,
     content text not null,
     user_id int not null,
+    img text not null,
     foreign key (user_id) references users(id) on Delete CASCADE
 );
 
