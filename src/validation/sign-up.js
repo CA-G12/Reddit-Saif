@@ -5,7 +5,7 @@ const signUpValidate = (data) => {
     email: joi.string().min(6).email().required(),
     password: joi.string().min(6).required(),
     username: joi.string().min(2).required(),
-    img: joi.string().min(6).required(),
+    img: joi.string().min(4).required(),
   });
 
   return schema.validateAsync(data);
