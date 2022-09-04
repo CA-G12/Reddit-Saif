@@ -23,6 +23,7 @@ describe('Sign up Router', () => {
         else {
           expect(res.body.msg).toEqual('User added successfully');
           done();
+          
         }
       });
   });
