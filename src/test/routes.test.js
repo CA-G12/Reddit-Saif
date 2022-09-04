@@ -19,7 +19,6 @@ describe('Sign up Router', () => {
       .expect(200)
       .expect('Content-Type', /json/)
       .end((err, res) => {
-        console.log(err,'something happen');
         if (err) done(err);
         else {
           expect(res.body.msg).toEqual('User added successfully');
