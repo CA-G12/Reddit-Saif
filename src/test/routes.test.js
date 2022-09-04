@@ -19,6 +19,7 @@ describe('Sign up Router', () => {
       .expect(200)
       .expect('Content-Type', /json/)
       .end((err, res) => {
+        console.log(err);
         if (err) done(err);
         else {
           expect(res.body.msg).toEqual('User added successfully');
@@ -45,7 +46,7 @@ describe('Sign up Router', () => {
         }
       });
   });
-  
+
   test('should return email invalid', (done) => {
     supertest(router)
       .post('/api/v1/sign-up')
