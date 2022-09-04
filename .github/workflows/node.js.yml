@@ -25,10 +25,6 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      - name: put env secret key
-        env: 
-          SECRET_TOKEN: ${{ secrets.SECRET_TOKEN }}
-        
       - name: Check out repository code
         uses: actions/checkout@v2
 
@@ -41,4 +37,3 @@ jobs:
         env:
           TEST_DB_URL: postgres://saif2:123@postgres:5432/reddit_test
           NODE_ENV: test
-          SECRET_TOKEN: ${{ secrets.SECRET_TOKEN }}
