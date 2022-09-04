@@ -45,6 +45,7 @@ describe('Sign up Router', () => {
         }
       });
   });
+  
   test('should return email invalid', (done) => {
     supertest(router)
       .post('/api/v1/sign-up')
