@@ -19,6 +19,7 @@ jobs:
           POSTGRES_USER: saif2
           POSTGRES_DB: reddit_test
           POSTGRES_PORT: 5432
+          SECRET_TOKEN: ${{ secrets.SECRET_TOKEN }}
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
