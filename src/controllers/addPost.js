@@ -1,7 +1,9 @@
 const { addPostQuery } = require('../database/queries');
+const { postValidate } = require('../validation');
 
 const addPost = (req, res) => {
-  addPostQuery({ ...req.body, user_id: req.userData.id })
+  postValidate({ ...req.body, user_id: req.userData.id })
+    .then((validatedData) => addPostQuery(validatedData))
     .then((data) => {
       res.send({ msg: 'Post added successfully', statusCode: 200 });
     }).catch((err) => {

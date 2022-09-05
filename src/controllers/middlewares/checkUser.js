@@ -1,15 +1,18 @@
+const { CustomError } = require('../../Errors');
 const { verifyToken } = require('../../utils');
 
 const checkUser = (req, res, next) => {
-  verifyToken(req.cookies)
+  const { token } = req.cookies;
+  if (!token) throw new CustomError('Un authorized', 400);
+  verifyToken(token)
     .then((decoded) => {
       req.userData = decoded;
       next();
     })
     .catch((err) => {
       res.send({
-        msg: 'You are not verified',
-        statusCode: 400,
+        msg: err.message || 'You are not verified',
+        statusCode: err.status || 400,
       });
     });
 };

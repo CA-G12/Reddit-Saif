@@ -1,5 +1,12 @@
+const { getPostsQuery } = require('../database/queries');
+
 const getPosts = (req, res) => {
-    res.send({msg : 'hello posts'});
-}
+  getPostsQuery()
+    .then((data) => res.send({ msg: data.rows }))
+    .catch((err) => res.send({
+      msg: err.message || 'Internal server error',
+      statusCode: err.status || 500,
+    }));
+};
 
 module.exports = getPosts;
