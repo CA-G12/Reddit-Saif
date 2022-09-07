@@ -1,0 +1,54 @@
+/* General styles */
+*{
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+}
+body{
+    background-color: #DAE0E6;
+
+}
+/* Header */
+header{
+    background-color: #fff;
+}
+header nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+header nav img{
+    width: 6rem;
+}
+nav .btns{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+nav .btns .username{
+    font-size: 1.1rem;
+}
+nav .btns .btn{
+    border: 2px solid orange;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: orange;
+    background-color: #fff;
+    transition: all 0.3s ;
+
+}
+nav .btns .btn:hover{
+    color: #fff;
+    background-color: orange;
+}
+header input{
+    display: block;
+    width: 25rem ;
+    padding: 10px 18px ;
+    background-color: #F6F7F8;
+    border-radius: 10px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}

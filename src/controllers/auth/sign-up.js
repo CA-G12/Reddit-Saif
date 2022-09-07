@@ -24,6 +24,7 @@ const signUp = (req, res) => {
     })
     .then((token) => {
       res.cookie('token', token).status(200).send({
+        username: req.body.username,
         msg: 'User added successfully',
         statusCode: 200,
       });

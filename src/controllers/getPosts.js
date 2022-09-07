@@ -2,7 +2,7 @@ const { getPostsQuery } = require('../database/queries');
 
 const getPosts = (req, res) => {
   getPostsQuery()
-    .then((data) => res.send({ msg: data.rows }))
+    .then((data) => res.send({ msg: data.rows, statusCode: 200 }))
     .catch((err) => res.send({
       msg: err.message || 'Internal server error',
       statusCode: err.status || 500,
