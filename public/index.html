@@ -5,8 +5,92 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reddit app</title>
+    <!-- Css links -->
+    <link rel="stylesheet" href="./style.css">
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 <body>
-    hello world
+    <header class="header">
+        <nav>
+            <h1 class="logo"><a href="#"><img src="./assets/images/redditLogo.png" alt="Reddit logo"></a></h1>
+            <label for="search-input">
+                <input type="search"  id="search-input" placeholder="Search Reddit">
+            </label>
+            <div class="btns">
+                <button class="btn sign-in-btn">Sign in</button>
+                <button class="btn sign-up-btn">Sign up</button>
+            </div>
+        </nav>
+    </header>
+    <div class="add-reddit-btn">
+        <button class="btn create-post-btn">Create Post</button>
+    </div>
+    <section class="posts">
+        <!-- <div class="post">
+            <div class="user-info">
+                <img src="https://picsum.photos/200/300" alt="random">
+                <div class="post-username">Mohammed</div>
+            </div>
+            <h3 class="post-title">lorem 1</h3>
+            <p class="post-content">Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
+            <div class="post-image">
+                <img src="https://picsum.photos/200" alt="lorem_img">
+            </div>
+            <div class="votes">
+                <i class="fa-solid fa-thumbs-up"></i>
+                <span class="num-votes">20</span>
+            </div>
+
+        </div> -->
+    </section>
+    <div class="overlay sign-up-overlay">
+        <div class="form-card sing-up-card">
+            <i class="fa-solid fa-xmark x-icon x-sign-up-icon"></i>
+            <h3 class="form-title">Sign Up</h3>
+            <form class="sign-up-form" name="sign-up-form">
+                <label for="username">
+                    <input type="text" name="username" id="username" placeholder="Username" minlength="2" required>
+                    <span class="error"></span>
+                </label>
+                <label for="sign-up-email">
+                    <input type="email" name="email" id="sign-up-email" placeholder="Email" minlength="6" required>
+                    <span class="error"></span>
+                </label>
+                <label for="sign-up-password">
+                    <input type="password" name="password" id="sign-up-password" placeholder="Password" minlength="6" required>
+                    <span class="error"></span>
+                </label>
+                <label for="confirm-password">
+                    <input type="password" name="confirm-password" id="confirm-password" placeholder="Confirm password" minlength="6" required>
+                    <span class="error"></span>
+                </label>
+                <label for="user-img">
+                    <input type="text" name="user-img" id="user-img" placeholder="User image" minlength="4" required>
+                    <span class="error"></span>
+                </label>
+                <button type="submit" class="sign-up-submit">Register</button>
+            </form>
+        </div>
+    </div>
+    <div class="overlay sign-in-overlay">
+        <div class="form-card sing-in-card">
+            <i class="fa-solid fa-xmark x-icon x-sign-in-icon"></i>
+            <h3 class="form-title">Sign In</h3>
+            <form class="sign-in-form" name="sign-in-form">
+                <label for="sign-in-email">
+                    <input type="email" name="email" id="sign-in-email" placeholder="Email" minlength="6" required>
+                    <span class="error"></span>
+                </label>
+                <label for="sign-inpassword">
+                    <input type="password" name="password" id="sign-in-password" placeholder="Password" minlength="6" required>
+                    <span class="error"></span>
+                </label>
+                <button type="submit" class="sign-in-submit">Get Started</button>
+            </form>
+        </div>
+    </div>
+    <script src="./utils.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>

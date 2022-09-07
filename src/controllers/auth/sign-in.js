@@ -19,6 +19,7 @@ const signIn = (req, res) => {
     })
     .then((token) => {
       res.cookie('token', token).status(200).send({
+        username: req.user.username,
         msg: 'Logged successfully',
         statusCode: 200,
       });
