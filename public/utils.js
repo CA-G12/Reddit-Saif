@@ -37,16 +37,20 @@ const validateEmptyForm = (e) => {
 };
 
 const addLike = (e) => {
+  const postId = e.target.closest('.post').id;
+  const likeNum = e.target.classList.contains('up') ? 1 : -1;
   const options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify({ postId, likeNum }),
   };
   fetch('/api/v1/like', options)
     .then((data) => data.json())
     .then((result) => {
       if (result.statusCode === 200) {
+        getPosts();
         myAlert(result.msg, 'done');
       } else {
         myAlert(result.msg, 'error');
@@ -54,15 +58,12 @@ const addLike = (e) => {
     })
     .catch((err) => console.log(err));
 };
-const disLike = (e) => {
-
-};
 const renderData = (arr) => {
   posts.textContent = '';
   arr.forEach((ele) => {
     const post = document.createElement('div');
     post.classList.add('post');
-
+    post.id = ele.post_id;
     const userInfo = document.createElement('div');
     userInfo.classList.add('user-info');
     const userImg = document.createElement('img');
@@ -96,16 +97,16 @@ const renderData = (arr) => {
     const postVotes = document.createElement('div');
     postVotes.classList.add('votes');
     const likeIcon = document.createElement('i');
-    likeIcon.classList.add('fa-solid', 'fa-caret-up');
+    likeIcon.classList.add('fa-solid', 'fa-caret-up', 'up');
     likeIcon.addEventListener('click', addLike);
     postVotes.appendChild(likeIcon);
     const numLikes = document.createElement('span');
     numLikes.classList.add('num-votes');
-    numLikes.textContent = ` ${ele.count} `;
+    numLikes.textContent = ` ${ele.sum || 0} `;
     postVotes.appendChild(numLikes);
     const disLikeIcon = document.createElement('i');
-    disLikeIcon.classList.add('fa-solid', 'fa-caret-down');
-    disLikeIcon.addEventListener('click', disLike);
+    disLikeIcon.classList.add('fa-solid', 'fa-caret-down', 'down');
+    disLikeIcon.addEventListener('click', addLike);
     postVotes.appendChild(disLikeIcon);
     post.appendChild(postVotes);
 
@@ -118,6 +119,27 @@ const displayMsg = (msg) => {
   p.textContent = msg;
   posts.appendChild(p);
 };
+const getUserLikes = () => {
+  fetch('/api/v1/userLikes')
+    .then((data) => data.json())
+    .then((result) => {
+      if (result.statusCode === 200) {
+        const allPosts = document.querySelectorAll('.post');
+        allPosts.forEach((post) => {
+          result.msg.forEach((ele) => {
+            // eslint-disable-next-line eqeqeq
+            if (ele.post_id == post.id && ele.voteval === 1) {
+              post.querySelector('.up').classList.add('light');
+            // eslint-disable-next-line eqeqeq
+            } else if (ele.post_id == post.id && ele.voteval === -1) {
+              post.querySelector('.down').classList.add('light');
+            }
+          });
+        });
+      }
+    })
+    .catch((err) => console.log(err, 'hello'));
+};
 const getPosts = () => {
   fetch('/api/v1/posts')
     .then((data) => data.json())
@@ -127,6 +149,7 @@ const getPosts = () => {
           displayMsg('There is no posts yet');
         } else {
           renderData(result.msg);
+          getUserLikes();
         }
       } else {
         displayMsg(result.msg);
