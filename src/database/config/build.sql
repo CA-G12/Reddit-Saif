@@ -1,6 +1,6 @@
 BEGIN;
 
-DROP TABLE IF EXISTS users, posts, votes CASCADE;
+DROP TABLE IF EXISTS users, posts, votes, comments CASCADE;
 
 CREATE TABLE users (
     id serial primary key,
@@ -17,6 +17,7 @@ CREATE TABLE posts (
     content text not null,
     user_id int not null,
     img text not null,
+    created_date timestamp not null default CURRENT_TIMESTAMP,
     foreign key (user_id) references users(id) on Delete CASCADE
 );
 
@@ -29,5 +30,14 @@ CREATE TABLE votes (
     foreign key (post_id) references posts(id) on Delete CASCADE
 );
 
+CREATE TABLE comments (
+    id serial primary key,
+    post_id int not null,
+    user_id int not null,
+    content text not null,
+    created_date timestamp not null default CURRENT_TIMESTAMP,
+    foreign key (post_id) references posts(id) on Delete CASCADE,
+    foreign key (user_id) references users(id) on Delete CASCADE
+);
 
 COMMIT;
