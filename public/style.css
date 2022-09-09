@@ -1,15 +1,27 @@
+/* fonts  */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 /* General styles */
+:root {
+    --main-color: #ff4500;
+}
 *{
     padding: 0%;
     margin: 0%;
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 body{
     background-color: #DAE0E6;
 
 }
 /* Header */
+
 header{
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    width: 100%;
     background-color: #fff;
 }
 header nav{
@@ -22,18 +34,18 @@ header nav img{
     width: 6rem;
 }
 nav .btns .btn, .add-reddit-btn .create-post-btn{
-    border: 2px solid orange;
+    border: 2px solid var(--main-color);
     padding: 10px 20px;
     border-radius: 20px;
     cursor: pointer;
-    color: orange;
+    color: var(--main-color);
     background-color: #fff;
     transition: all 0.3s ;
 
 }
 nav .btns .btn:hover, .add-reddit-btn .create-post-btn:hover{
     color: #fff;
-    background-color: orange;
+    background-color: var(--main-color);
 }
 header input{
     display: block;
@@ -75,7 +87,7 @@ header input{
     gap: 10px;
     background-color: #fff;
     width: 22rem;
-    border: 1px solid orange;
+    border: 1px solid var(--main-color);
     margin: 20px auto;
     padding: 20px 0;
     border-radius: 8px;
@@ -89,7 +101,7 @@ header input{
     cursor: pointer;
 }
 .form-card h3{
-    color: orange;
+    color: var(--main-color);
 }
 form{
     width: 100%;
@@ -98,7 +110,7 @@ form input, form textarea{
     display: block;
     margin: 10px auto;
     width: 80%;
-    border: 1px solid orange;
+    border: 1px solid var(--main-color);
     padding: 10px 15px;
     border-radius: 25px;
     transition: all 0.5s;
@@ -108,11 +120,11 @@ form input:focus, form textarea:focus{
     outline: none;
 }
 form button{
-    background-color: orange;
+    background-color: var(--main-color);
     color: #fff;
     display: block;
     margin: auto;
-    border: 1px solid orange;
+    border: 1px solid var(--main-color);
     padding: 10px 30px;
     border-radius: 25px;
     cursor: pointer;
@@ -120,7 +132,7 @@ form button{
     font-size: 1.1rem;
 }
 form button:hover{
-    color: orange;
+    color: var(--main-color);
     background-color: #fff;
 }
 form input:valid, form textarea:valid{
@@ -145,7 +157,8 @@ form input:invalid, form textarea:invalid{
 .my-alert{
     padding: 10px 40px;
     color: #fff;
-    position: absolute;
+    /* position: absolute; */
+    position: fixed;
     top: 4.5rem;
     right: 4.5rem;
     border-radius: 10px;
@@ -159,28 +172,77 @@ form input:invalid, form textarea:invalid{
     background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
 }
 /* posts */
+
 .posts{
     display: flex;
     flex-direction: column;
     gap: 1.7rem;
     align-items: center;
     margin: 1.7rem;
+    padding: 0 18rem;
 }
 .post{
-    width: 80%;
+    width: 70%;
     margin: auto;
     background-color: #fff;
     border-radius: 7px;
     display: flex;
     flex-direction: column;
     gap: 0.9rem;
-    align-items: center;
     padding: 7px;
+}
+
+
+@media (min-width: 992px ) and (max-width: 1999.99px) {
+    body{
+        padding: 8rem 0;
+    }
+    .posts{
+        padding: 0 14rem;
+    }
+    .post{
+        width: 70%;
+    }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+    body{
+        padding: 10rem 0;
+    }
+    .posts{
+        padding: 0 8rem;
+    }
+    .post{
+        width: 100%;
+    }
+}
+@media (max-width: 767.99px) {
+    body{
+        padding: 12rem 0;
+    }
+    .posts{
+        padding: 0 2rem;
+    }
+    .post{
+        width: 100%;
+    }
+    header nav{
+        flex-wrap: wrap;
+    }
+    header nav label input{
+        width: 100%;
+    }
+    header nav label{
+        order: 3;
+        display: block;
+        margin-top: 1rem;
+        width: 100%;
+    }
 }
 .post .post-title{
     border-bottom: 1px solid black;
-    color: orange;
+    color: var(--main-color);
     font-size: 1.6rem;
+    text-align: center;
 }
 .post .votes{
     align-self: flex-start;
@@ -189,15 +251,15 @@ form input:invalid, form textarea:invalid{
     align-items: center;
     gap: 5px;
     font-size: 1.1rem;
-}
-.post img{
-    width: 200px;
-    height: 200px;
+    padding: 0 1rem;
 }
 .post .votes i{
     cursor: pointer;
     font-size: 1.8rem;
     color: #80D0C7;
+}
+.post .votes .light{
+    color: var(--main-color);
 }
 .post .user-info{
     display: flex;
@@ -206,11 +268,16 @@ form input:invalid, form textarea:invalid{
     padding: 10px ;
     align-items: center;
 }
+.post img{
+    width: 100%;
+    height: 100%;
+}
 .post .user-info img{
     width: 50px;
     height: 50px;
     border-radius: 50%;
 }
+
 /* error msg */
 .error-msg{
     background-color: #0093E9;
@@ -218,4 +285,32 @@ form input:invalid, form textarea:invalid{
     color: #fff;
     border-radius: 10px 40px;
     padding: 1rem 3rem;
+}
+/* Comments */
+.comments{
+    background-color: #80D0C7;
+    border-radius: 10px;
+    width: 80%;
+    margin: auto;
+}
+.comment{
+    border: 1p solid var(--main-color);
+    padding: 0.8rem;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 20px;
+    text-align: justify;
+}
+.comment-user{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 7rem;
+}
+.comment img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }

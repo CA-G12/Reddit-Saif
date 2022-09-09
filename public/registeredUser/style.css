@@ -30,18 +30,18 @@ nav .btns .username{
     font-size: 1.1rem;
 }
 nav .btns .btn{
-    border: 2px solid orange;
+    border: 2px solid var(--main-color);
     padding: 10px 20px;
     border-radius: 20px;
     cursor: pointer;
-    color: orange;
+    color: var(--main-color);
     background-color: #fff;
     transition: all 0.3s ;
 
 }
 nav .btns .btn:hover{
     color: #fff;
-    background-color: orange;
+    background-color: var(--main-color);
 }
 header input{
     display: block;

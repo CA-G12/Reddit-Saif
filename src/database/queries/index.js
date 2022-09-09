@@ -4,7 +4,18 @@ const getUserByEmailQuery = require('./getUserByEmail');
 const addPostQuery = require('./addPost');
 const getPostsQuery = require('./getPosts');
 const addLikeQuery = require('./addLike');
+const getUserLikesQuery = require('./getUserLikes');
+const getCommentsQuery = require('./getComments');
+const addCommentQuery = require('./addComment');
 
 module.exports = {
-  addUserQuery, getUserQuery, getUserByEmailQuery, addPostQuery, getPostsQuery, addLikeQuery,
+  addUserQuery,
+  getUserQuery,
+  getUserByEmailQuery,
+  addPostQuery,
+  getPostsQuery,
+  addLikeQuery,
+  getUserLikesQuery,
+  getCommentsQuery,
+  addCommentQuery,
 };

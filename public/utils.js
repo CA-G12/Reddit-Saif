@@ -35,18 +35,21 @@ const validateEmptyForm = (e) => {
   }
   return true;
 };
-
 const addLike = (e) => {
+  const postId = e.target.closest('.post').id;
+  const likeNum = e.target.classList.contains('up') ? 1 : -1;
   const options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify({ postId, likeNum }),
   };
   fetch('/api/v1/like', options)
     .then((data) => data.json())
     .then((result) => {
       if (result.statusCode === 200) {
+        getPosts();
         myAlert(result.msg, 'done');
       } else {
         myAlert(result.msg, 'error');
@@ -54,15 +57,12 @@ const addLike = (e) => {
     })
     .catch((err) => console.log(err));
 };
-const disLike = (e) => {
-
-};
 const renderData = (arr) => {
   posts.textContent = '';
   arr.forEach((ele) => {
     const post = document.createElement('div');
     post.classList.add('post');
-
+    post.id = ele.post_id;
     const userInfo = document.createElement('div');
     userInfo.classList.add('user-info');
     const userImg = document.createElement('img');
@@ -96,18 +96,40 @@ const renderData = (arr) => {
     const postVotes = document.createElement('div');
     postVotes.classList.add('votes');
     const likeIcon = document.createElement('i');
-    likeIcon.classList.add('fa-solid', 'fa-caret-up');
+    likeIcon.classList.add('fa-solid', 'fa-caret-up', 'up');
     likeIcon.addEventListener('click', addLike);
     postVotes.appendChild(likeIcon);
     const numLikes = document.createElement('span');
     numLikes.classList.add('num-votes');
-    numLikes.textContent = ` ${ele.count} `;
+    numLikes.textContent = ` ${ele.sum || 0} `;
     postVotes.appendChild(numLikes);
     const disLikeIcon = document.createElement('i');
-    disLikeIcon.classList.add('fa-solid', 'fa-caret-down');
-    disLikeIcon.addEventListener('click', disLike);
+    disLikeIcon.classList.add('fa-solid', 'fa-caret-down', 'down');
+    disLikeIcon.addEventListener('click', addLike);
     postVotes.appendChild(disLikeIcon);
     post.appendChild(postVotes);
+
+    const commentForm = document.createElement('form');
+    commentForm.classList.add('comment-form');
+    const label = document.createElement('label');
+    const commentInput = document.createElement('input');
+    commentInput.classList.add('comment-input');
+    commentInput.type = 'text';
+    commentInput.required = true;
+    commentInput.name = 'comment';
+    commentInput.placeholder = 'Your comment';
+    const errorSpan = document.createElement('span');
+    errorSpan.classList.add('error');
+    label.appendChild(commentInput);
+    label.appendChild(errorSpan);
+    commentForm.appendChild(label);
+    const submitBtn = document.createElement('button');
+    submitBtn.classList.add('btn', 'comment-submit');
+    submitBtn.type = 'submit';
+    submitBtn.textContent = 'Add Comment';
+    commentForm.appendChild(submitBtn);
+    commentForm.addEventListener('submit', addComment);
+    post.appendChild(commentForm);
 
     posts.appendChild(post);
   });
@@ -118,6 +140,73 @@ const displayMsg = (msg) => {
   p.textContent = msg;
   posts.appendChild(p);
 };
+const getUserLikes = () => {
+  fetch('/api/v1/userLikes')
+    .then((data) => data.json())
+    .then((result) => {
+      if (result.statusCode === 200) {
+        const allPosts = document.querySelectorAll('.post');
+        allPosts.forEach((post) => {
+          result.msg.forEach((ele) => {
+            // eslint-disable-next-line eqeqeq
+            if (ele.post_id == post.id && ele.voteval === 1) {
+              post.querySelector('.up').classList.add('light');
+            // eslint-disable-next-line eqeqeq
+            } else if (ele.post_id == post.id && ele.voteval === -1) {
+              post.querySelector('.down').classList.add('light');
+            }
+          });
+        });
+      }
+    })
+    .catch((err) => console.log(err, 'hello'));
+};
+const createComment = (comment) => {
+  const commentDiv = document.createElement('div');
+  commentDiv.classList.add('comment');
+  commentDiv.id = comment.id;
+
+  const p = document.createElement('p');
+  p.classList.add('comment-text');
+  p.textContent = comment.content;
+  commentDiv.appendChild(p);
+
+  const user = document.createElement('div');
+  user.classList.add('comment-user');
+  const username = document.createElement('p');
+  username.textContent = comment.username;
+  username.classList.add('comment-username');
+  user.appendChild(username);
+  const userImgDiv = document.createElement('div');
+  userImgDiv.classList.add('comment-image');
+  const userImg = document.createElement('img');
+  userImg.src = comment.img;
+  userImgDiv.appendChild(userImg);
+  user.appendChild(userImgDiv);
+  commentDiv.appendChild(user);
+  return commentDiv;
+};
+const getComments = () => {
+  fetch('/api/v1/comments')
+    .then((data) => data.json())
+    .then((result) => {
+      if (result.statusCode === 200) {
+        const allPosts = document.querySelectorAll('.post');
+
+        allPosts.forEach((post) => {
+          const commentsDiv = document.createElement('div');
+          commentsDiv.classList.add('comments');
+          result.msg.forEach((comment) => {
+            if (comment.post_id == post.id) {
+              commentsDiv.appendChild(createComment(comment));
+            }
+            post.appendChild(commentsDiv);
+          });
+        });
+      }
+    })
+    .catch((err) => console.log(err));
+};
 const getPosts = () => {
   fetch('/api/v1/posts')
     .then((data) => data.json())
@@ -127,9 +216,39 @@ const getPosts = () => {
           displayMsg('There is no posts yet');
         } else {
           renderData(result.msg);
+          getUserLikes();
+          getComments();
         }
       } else {
         displayMsg(result.msg);
+      }
+    })
+    .catch((err) => console.log(err));
+};
+const addComment = (e) => {
+  e.preventDefault();
+
+  const isValidatedEmpty = validateEmptyForm(e);
+  if (!isValidatedEmpty) return false;
+
+  const commentText = e.target.comment.value;
+  const postId = e.target.closest('.post').id;
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ commentText, postId }),
+  };
+  fetch('/api/v1/comment', options)
+    .then((data) => data.json())
+    .then((result) => {
+      if (result.statusCode === 200) {
+        e.target.reset();
+        getPosts();
+        myAlert(result.msg, 'done');
+      } else {
+        myAlert(result.msg, 'error');
       }
     })
     .catch((err) => console.log(err));
