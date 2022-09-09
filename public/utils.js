@@ -9,7 +9,12 @@ const handleError = (element, msg) => {
     errorElement.classList.toggle('show-error');
   }
 };
-
+const signOutUser = () => {
+  window.location.href = './../';
+};
+const setUsernameInHeader = () => {
+  username.textContent = localStorage.getItem('reddit_username') || 'Unknown';
+}
 const myAlert = (msg, status) => {
   const p = document.createElement('p');
   p.textContent = msg;
@@ -35,7 +40,7 @@ const validateEmptyForm = (e) => {
   }
   return true;
 };
-const addLike = (e) => {
+const addLike = (e, getMyPosts) => {
   const postId = e.target.closest('.post').id;
   const likeNum = e.target.classList.contains('up') ? 1 : -1;
   const options = {
@@ -49,7 +54,8 @@ const addLike = (e) => {
     .then((data) => data.json())
     .then((result) => {
       if (result.statusCode === 200) {
-        getPosts();
+        // getPosts();
+        getMyPosts();
         myAlert(result.msg, 'done');
       } else {
         myAlert(result.msg, 'error');
@@ -97,7 +103,7 @@ const renderData = (arr) => {
     postVotes.classList.add('votes');
     const likeIcon = document.createElement('i');
     likeIcon.classList.add('fa-solid', 'fa-caret-up', 'up');
-    likeIcon.addEventListener('click', addLike);
+    likeIcon.addEventListener('click', (e) => addLike(e, getPosts));
     postVotes.appendChild(likeIcon);
     const numLikes = document.createElement('span');
     numLikes.classList.add('num-votes');
@@ -105,7 +111,7 @@ const renderData = (arr) => {
     postVotes.appendChild(numLikes);
     const disLikeIcon = document.createElement('i');
     disLikeIcon.classList.add('fa-solid', 'fa-caret-down', 'down');
-    disLikeIcon.addEventListener('click', addLike);
+    disLikeIcon.addEventListener('click', (e) => addLike(e, getPosts));
     postVotes.appendChild(disLikeIcon);
     post.appendChild(postVotes);
 
@@ -128,7 +134,7 @@ const renderData = (arr) => {
     submitBtn.type = 'submit';
     submitBtn.textContent = 'Add Comment';
     commentForm.appendChild(submitBtn);
-    commentForm.addEventListener('submit', addComment);
+    commentForm.addEventListener('submit',(e) => addComment(e, getPosts));
     post.appendChild(commentForm);
 
     posts.appendChild(post);
@@ -215,6 +221,7 @@ const getPosts = () => {
         if (!result.msg.length) {
           displayMsg('There is no posts yet');
         } else {
+          console.log(result.msg);
           renderData(result.msg);
           getUserLikes();
           getComments();
@@ -225,7 +232,7 @@ const getPosts = () => {
     })
     .catch((err) => console.log(err));
 };
-const addComment = (e) => {
+const addComment = (e, getMyPosts) => {
   e.preventDefault();
 
   const isValidatedEmpty = validateEmptyForm(e);
@@ -245,7 +252,8 @@ const addComment = (e) => {
     .then((result) => {
       if (result.statusCode === 200) {
         e.target.reset();
-        getPosts();
+        // getPosts();
+        getMyPosts();
         myAlert(result.msg, 'done');
       } else {
         myAlert(result.msg, 'error');

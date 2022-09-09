@@ -10,6 +10,7 @@
     margin: 0%;
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
 }
 body{
     background-color: #DAE0E6;
@@ -18,10 +19,10 @@ body{
 /* Header */
 
 header{
-    position: fixed;
+    /* position: fixed;
     left: 0%;
     top: 0%;
-    width: 100%;
+    width: 100%; */
     background-color: #fff;
 }
 header nav{
@@ -33,7 +34,7 @@ header nav{
 header nav img{
     width: 6rem;
 }
-nav .btns .btn, .add-reddit-btn .create-post-btn{
+.btns .btn, .add-reddit-btn .create-post-btn{
     border: 2px solid var(--main-color);
     padding: 10px 20px;
     border-radius: 20px;
@@ -43,9 +44,16 @@ nav .btns .btn, .add-reddit-btn .create-post-btn{
     transition: all 0.3s ;
 
 }
-nav .btns .btn:hover, .add-reddit-btn .create-post-btn:hover{
+ .btns .btn:hover, .add-reddit-btn .create-post-btn:hover{
     color: #fff;
     background-color: var(--main-color);
+}
+.btns .btn a{
+    color:var(--main-color);
+    text-decoration: none;
+}
+.btns .btn:hover a{
+    color: white;
 }
 header input{
     display: block;
@@ -195,7 +203,7 @@ form input:invalid, form textarea:invalid{
 
 @media (min-width: 992px ) and (max-width: 1999.99px) {
     body{
-        padding: 8rem 0;
+        /* padding: 8rem 0; */
     }
     .posts{
         padding: 0 14rem;
@@ -206,7 +214,7 @@ form input:invalid, form textarea:invalid{
 }
 @media (min-width: 768px) and (max-width: 991.98px) {
     body{
-        padding: 10rem 0;
+        /* padding: 10rem 0; */
     }
     .posts{
         padding: 0 8rem;
@@ -217,7 +225,7 @@ form input:invalid, form textarea:invalid{
 }
 @media (max-width: 767.99px) {
     body{
-        padding: 12rem 0;
+        /* padding: 12rem 0; */
     }
     .posts{
         padding: 0 2rem;

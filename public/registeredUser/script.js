@@ -8,9 +8,6 @@ const createPostOverlay = document.querySelector('.create-post-overlay');
 const { forms } = document;
 
 // Actions
-const signOutUser = () => {
-  window.location.href = './../';
-};
 
 const validateCreatePost = (e) => {
   e.preventDefault();
@@ -67,5 +64,5 @@ createPostXIcon.addEventListener('click', () => generalToggle(createPostOverlay)
 
 forms['create-post-form'].addEventListener('submit', addPost);
 
-username.textContent = localStorage.getItem('reddit_username') || 'Unknown';
+setUsernameInHeader();
 getPosts();

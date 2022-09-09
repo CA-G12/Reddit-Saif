@@ -7,6 +7,8 @@ const addLikeQuery = require('./addLike');
 const getUserLikesQuery = require('./getUserLikes');
 const getCommentsQuery = require('./getComments');
 const addCommentQuery = require('./addComment');
+const getUserPostsQuery = require('./getUserPosts');
+const getUserInfoQuery = require('./getUserInfo');
 
 module.exports = {
   addUserQuery,
@@ -18,4 +20,6 @@ module.exports = {
   getUserLikesQuery,
   getCommentsQuery,
   addCommentQuery,
+  getUserPostsQuery,
+  getUserInfoQuery,
 };
