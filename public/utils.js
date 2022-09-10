@@ -1,7 +1,13 @@
 const generalToggle = (element) => {
   element.classList.toggle('show-overlay');
 };
-
+const showTopBtn = (element) => {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    element.classList.add('show-top-btn');
+  } else {
+    element.classList.remove('show-top-btn');
+  }
+};
 const handleError = (element, msg) => {
   const errorElement = element.closest('label').querySelector('.error');
   errorElement.textContent = msg;
@@ -145,6 +151,18 @@ const displayMsg = (msg) => {
   p.classList.add('error-msg');
   p.textContent = msg;
   posts.appendChild(p);
+};
+const setEditDeleteIcon = (post) => {
+  const icons = document.createElement('div');
+  icons.classList.add('icons');
+  const deleteIcon = document.createElement('i');
+  deleteIcon.classList.add('fa-solid', 'fa-xmark', 'x-icon', 'delete-post-icon');
+  icons.appendChild(deleteIcon);
+  const editIcon = document.createElement('i');
+  editIcon.classList.add('fa-solid', 'fa-pen-to-square', 'edit-icon');
+  icons.appendChild(editIcon);
+
+  post.appendChild(icons);
 };
 const getUserLikes = () => {
   fetch('/api/v1/userLikes')

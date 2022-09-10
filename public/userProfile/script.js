@@ -69,7 +69,7 @@ const getUserInfo = () => {
 
 // events
 signOutBtn.addEventListener('click', signOutUser);
-
+document.addEventListener('scroll',() => showTopBtn(document.querySelector('.top-btn')));
 setUsernameInHeader();
 getUserInfo();
 getUserPosts();

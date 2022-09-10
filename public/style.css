@@ -34,7 +34,7 @@ header nav{
 header nav img{
     width: 6rem;
 }
-.btns .btn, .add-reddit-btn .create-post-btn{
+.btns .btn, .add-reddit-btn .create-post-btn, .top-btn{
     border: 2px solid var(--main-color);
     padding: 10px 20px;
     border-radius: 20px;
@@ -44,16 +44,25 @@ header nav img{
     transition: all 0.3s ;
 
 }
- .btns .btn:hover, .add-reddit-btn .create-post-btn:hover{
+ .btns .btn:hover, .add-reddit-btn .create-post-btn:hover, .top-btn:hover{
     color: #fff;
     background-color: var(--main-color);
 }
-.btns .btn a{
+.btns .btn a ,.top-btn a {
     color:var(--main-color);
     text-decoration: none;
 }
-.btns .btn:hover a{
+.btns .btn:hover a, .top-btn:hover a{
     color: white;
+}
+.top-btn{
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    display: none;
+}
+.show-top-btn{
+    display: block;
 }
 header input{
     display: block;
@@ -197,7 +206,7 @@ form input:invalid, form textarea:invalid{
     display: flex;
     flex-direction: column;
     gap: 0.9rem;
-    padding: 7px;
+    padding: 1rem 0.8rem;
 }
 
 
@@ -309,7 +318,6 @@ form input:invalid, form textarea:invalid{
     flex-direction: row-reverse;
     align-items: center;
     gap: 20px;
-    text-align: justify;
 }
 .comment-user{
     display: flex;

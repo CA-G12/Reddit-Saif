@@ -61,6 +61,8 @@ const addPost = (e) => {
 signOutBtn.addEventListener('click', signOutUser);
 createPostBtn.addEventListener('click', () => generalToggle(createPostOverlay));
 createPostXIcon.addEventListener('click', () => generalToggle(createPostOverlay));
+document.addEventListener('scroll', () => showTopBtn(document.querySelector('.top-btn')));
+
 
 forms['create-post-form'].addEventListener('submit', addPost);
 

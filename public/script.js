@@ -112,6 +112,7 @@ signUpBtn.addEventListener('click', () => generalToggle(signUpOverlay));
 singUpXIcon.addEventListener('click', () => generalToggle(signUpOverlay));
 signInBtn.addEventListener('click', () => generalToggle(signInOverlay));
 singInXIcon.addEventListener('click', () => generalToggle(signInOverlay));
+document.addEventListener('scroll',() => showTopBtn(document.querySelector('.top-btn')));
 
 forms['sign-up-form'].addEventListener('submit', signUpUser);
 forms['sign-in-form'].addEventListener('submit', signInUser);
