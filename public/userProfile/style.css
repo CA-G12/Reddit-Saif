@@ -32,7 +32,12 @@ section{
     padding: 30px 15px;
     border: 1px solid var(--main-color);
     background-color: #fff;
-
+    width: 30rem;
+}
+@media (max-width: 768px) {
+    .info{
+        width: 18rem;
+    }
 }
 .info .user-image img{
     width: 100%;
