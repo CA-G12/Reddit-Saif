@@ -6,6 +6,8 @@ const addLikeRouter = require('./addLike');
 const getUserLikesRouter = require('./getUserLikes');
 const getCommentsRouter = require('./getComments');
 const addCommentRouter = require('./addComment');
+const getUserPostsRouter = require('./getUserPosts');
+const getUserInfoRouter = require('./getUserInfo');
 
 router.use(signInRouter);
 router.use(signUpRouter);
@@ -15,4 +17,6 @@ router.use(addLikeRouter);
 router.use(getUserLikesRouter);
 router.use(getCommentsRouter);
 router.use(addCommentRouter);
+router.use(getUserPostsRouter);
+router.use(getUserInfoRouter);
 module.exports = router;

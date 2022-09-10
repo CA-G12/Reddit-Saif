@@ -8,9 +8,6 @@ const createPostOverlay = document.querySelector('.create-post-overlay');
 const { forms } = document;
 
 // Actions
-const signOutUser = () => {
-  window.location.href = './../';
-};
 
 const validateCreatePost = (e) => {
   e.preventDefault();
@@ -58,7 +55,7 @@ const addPost = (e) => {
         myAlert(result.msg, 'error');
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => myAlert(err.msg || err.message || 'Something went wrong', 'error'));
 };
 // events;
 signOutBtn.addEventListener('click', signOutUser);
@@ -67,5 +64,5 @@ createPostXIcon.addEventListener('click', () => generalToggle(createPostOverlay)
 
 forms['create-post-form'].addEventListener('submit', addPost);
 
-username.textContent = localStorage.getItem('reddit_username') || 'Unknown';
+setUsernameInHeader();
 getPosts();

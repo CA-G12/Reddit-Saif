@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit app || Profile</title>
+    <!-- Css links -->
+    <link rel="stylesheet" href="./../style.css">
+    <link rel="stylesheet" href="./style.css">
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <nav>
+            <h1 class="logo"><a href="../registeredUser/index.html"><img src="./../assets/images/redditLogo.png" alt="Reddit logo"></a></h1>
+            <label for="search-input">
+                <input type="search"  id="search-input" placeholder="Search Reddit">
+            </label>
+            <div class="btns">
+                <button class="btn sign-out-btn">Sign out</button>
+                <span class="username">Who</span>
+                <a href="../registeredUser/index.html"><i class="fa-solid fa-home"></i></a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="btns user-btns">
+            <button class="btn"><a href="#user-info">Your info</a></button>
+            <button class="btn"><a href="#all-posts">Your posts</a></button>
+            <!-- <button class="btn"><a href="#user-likes">Your likes</a></button> -->
+        </div>
+        <section class="user-info" id="user-info">
+            <h2 class="section-title info-title">Your info</h2>
+            <div class="info">
+    
+            </div>
+        </section>
+        <section class="all-posts" id="all-posts">
+            <h2 class="section-title all-posts-title">Your posts</h2>
+            <div class="posts">
+    
+            </div>
+        </section>
+        <!-- <section class="user-likes" id="user-likes">
+            <h2 class="section-title user-likes-title">Your likes</h2>
+            <div class="posts user-likes-posts"></div>
+        </section> -->
+    </main>
+
+    <script src="../utils.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>

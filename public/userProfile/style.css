@@ -1,0 +1,43 @@
+main{
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+.user-btns{
+    text-align: center;
+    padding: 3rem 
+    ;
+}
+section{
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.section-title{
+    text-align: center;
+    color: var(--main-color);
+    text-transform: capitalize;
+}
+.user-info{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding: 10px;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding: 30px 15px;
+    border: 1px solid var(--main-color);
+    background-color: #fff;
+
+}
+.info .user-image img{
+    width: 100%;
+    border-radius: 50%;
+}
+.info .username  span, .info .user-email span {
+    color: var(--main-color);
+}
