@@ -9,6 +9,7 @@ const getCommentsQuery = require('./getComments');
 const addCommentQuery = require('./addComment');
 const getUserPostsQuery = require('./getUserPosts');
 const getUserInfoQuery = require('./getUserInfo');
+const deletePostQuery = require('./deletePost');
 
 module.exports = {
   addUserQuery,
@@ -22,4 +23,5 @@ module.exports = {
   addCommentQuery,
   getUserPostsQuery,
   getUserInfoQuery,
+  deletePostQuery,
 };

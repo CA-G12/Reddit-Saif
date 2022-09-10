@@ -8,6 +8,7 @@ const getCommentsRouter = require('./getComments');
 const addCommentRouter = require('./addComment');
 const getUserPostsRouter = require('./getUserPosts');
 const getUserInfoRouter = require('./getUserInfo');
+const deletePostRouter = require('./deletePost');
 
 router.use(signInRouter);
 router.use(signUpRouter);
@@ -19,4 +20,5 @@ router.use(getCommentsRouter);
 router.use(addCommentRouter);
 router.use(getUserPostsRouter);
 router.use(getUserInfoRouter);
+router.use(deletePostRouter);
 module.exports = router;
