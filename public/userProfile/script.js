@@ -3,6 +3,10 @@ const posts = document.querySelector('.posts');
 const username = document.querySelector('.username');
 const signOutBtn = document.querySelector('.sign-out-btn');
 const userInfo = document.querySelector('.info');
+const createPostOverlay = document.querySelector('.create-post-overlay');
+const createPostXIcon = document.querySelector('.x-create-post-icon');
+const { forms } = document;
+
 
 // actions
 
@@ -68,10 +72,47 @@ const getUserInfo = () => {
     })
     .catch((err) => myAlert(err.msg || err.message || 'Something went wrong', 'error'));
 };
+const editPost = (e) => {
+  e.preventDefault();
+  const isValidated = validateCreatePost(e);
+  if (!isValidated) return;
+
+  const formData = {
+    id: e.target.getAttribute('custom-id'),
+    title: e.target['create-post-title'].value,
+    content: e.target['create-post-content'].value,
+    img: e.target['create-post-img'].value,
+  };
+
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  };
+
+  fetch('/api/v1/post', options)
+    .then((data) => data.json())
+    .then((result) => {
+      if (result.statusCode === 200) {
+        myAlert(result.msg, 'done');
+        e.target.reset();
+        generalToggle(createPostOverlay);
+        getUserPosts();
+      } else {
+        myAlert(result.msg, 'error');
+      }
+    })
+    .catch((err) => myAlert(err.msg || err.message || 'Something went wrong', 'error'));
+};
 
 // events
 signOutBtn.addEventListener('click', signOutUser);
 document.addEventListener('scroll', () => showTopBtn(document.querySelector('.top-btn')));
+createPostXIcon.addEventListener('click', () => generalToggle(createPostOverlay));
+forms['create-post-form'].addEventListener('submit', editPost);
+
 setUsernameInHeader();
 getUserInfo();
 getUserPosts();
