@@ -11,7 +11,9 @@ const deletePost = (e, getMyPosts) => {
   fetch(`/api/v1/post/${e.target.closest('.post').id}`, options)
     .then((data) => data.json())
     .then((result) => {
+      console.log(result);
       if (result.statusCode === 200) {
+        console.log('first');
         getMyPosts();
         myAlert(result.msg, 'done');
       } else {
@@ -22,6 +24,7 @@ const deletePost = (e, getMyPosts) => {
 };
 
 const editPost = (e) => {
+  myAlert('Not available yet', 'done');
   console.log(e.target.closest('.post').id);
 };
 const setEditDeleteIcon = (post, getMyPosts) => {

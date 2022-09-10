@@ -12,6 +12,7 @@ const getUserPosts = () => {
     .then((result) => {
       if (result.statusCode === 200) {
         if (!result.msg.length) {
+          renderData([], getUserPosts);
           displayMsg('There is no posts yet');
         } else {
           const userPosts = result.msg.map((ele) => ({ ...ele, canChange: true }));
