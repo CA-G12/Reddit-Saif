@@ -11,9 +11,7 @@ const deletePost = (e, getMyPosts) => {
   fetch(`/api/v1/post/${e.target.closest('.post').id}`, options)
     .then((data) => data.json())
     .then((result) => {
-      console.log(result);
       if (result.statusCode === 200) {
-        console.log('first');
         getMyPosts();
         myAlert(result.msg, 'done');
       } else {
@@ -23,9 +21,17 @@ const deletePost = (e, getMyPosts) => {
     .catch((err) => myAlert(err.msg || err.message || 'Something went wrong', 'error'));
 };
 
-const editPost = (e) => {
-  myAlert('Not available yet', 'done');
-  console.log(e.target.closest('.post').id);
+const showEditForm = (e) => {
+  const formOverlay = document.querySelector('.create-post-overlay');
+  const editForm = formOverlay.querySelector('form');
+
+  generalToggle(formOverlay);
+  window.location.href = '#';
+  const post = e.target.closest('.post');
+  editForm['create-post-title'].value = post.querySelector('.post-title').textContent;
+  editForm['create-post-content'].value = post.querySelector('.post-content').textContent;
+  editForm['create-post-img'].value = post.querySelector('.post-image img').src;
+  editForm.setAttribute('custom-id', post.id);
 };
 const setEditDeleteIcon = (post, getMyPosts) => {
   const icons = document.createElement('div');
@@ -36,7 +42,7 @@ const setEditDeleteIcon = (post, getMyPosts) => {
   icons.appendChild(deleteIcon);
   const editIcon = document.createElement('i');
   editIcon.classList.add('fa-solid', 'fa-pen-to-square', 'edit-icon');
-  editIcon.addEventListener('click', (e) => editPost(e, getMyPosts));
+  editIcon.addEventListener('click', showEditForm);
   icons.appendChild(editIcon);
 
   post.appendChild(icons);
@@ -84,6 +90,21 @@ const validateEmptyForm = (e) => {
     }
     handleError(inputs[i], '');
   }
+  return true;
+};
+const validateCreatePost = (e) => {
+  e.preventDefault();
+  //   check empty values
+  const isValidatedEmpty = validateEmptyForm(e);
+  if (!isValidatedEmpty) return false;
+
+  const postContent = e.target.querySelector('#create-post-content');
+  if (!postContent.value.trim()) {
+    handleError(postContent, 'Empty value is not allowed');
+    return false;
+  }
+  handleError(postContent, '');
+
   return true;
 };
 const addLike = (e, getMyPosts) => {
@@ -261,7 +282,7 @@ const getComments = () => {
         });
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => myAlert(err.msg || err.message || 'Something went wrong', 'error'));
 };
 const getPosts = () => {
   fetch('/api/v1/posts')

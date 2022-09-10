@@ -9,22 +9,6 @@ const { forms } = document;
 
 // Actions
 
-const validateCreatePost = (e) => {
-  e.preventDefault();
-  //   check empty values
-  const isValidatedEmpty = validateEmptyForm(e);
-  if (!isValidatedEmpty) return false;
-
-  const postContent = e.target.querySelector('#create-post-content');
-  if (!postContent.value.trim()) {
-    handleError(postContent, 'Empty value is not allowed');
-    return false;
-  }
-  handleError(postContent, '');
-
-  return true;
-};
-
 const addPost = (e) => {
   const isValidated = validateCreatePost(e);
   if (!isValidated) return;

@@ -9,6 +9,7 @@ const addComment = require('./addComment');
 const getUserPosts = require('./getUserPosts');
 const getUserInfo = require('./getUserInfo');
 const deletePost = require('./deletePost');
+const updatePost = require('./updatePost');
 
 module.exports = {
   signIn,
@@ -23,4 +24,5 @@ module.exports = {
   getUserPosts,
   getUserInfo,
   deletePost,
+  updatePost,
 };

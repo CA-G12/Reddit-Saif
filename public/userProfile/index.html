@@ -48,6 +48,27 @@
             <div class="posts user-likes-posts"></div>
         </section> -->
     </main>
+    <div class="overlay create-post-overlay">
+        <div class="form-card create-post-card">
+            <i class="fa-solid fa-xmark x-icon x-create-post-icon"></i>
+            <h3 class="form-title">Edit post</h3>
+            <form class="create-post-form" name="create-post-form">
+                <label for="create-post-title">
+                    <input type="text" name="create-post-title" id="create-post-title" placeholder="Title" required>
+                    <span class="error"></span>
+                </label>
+                <label for="create-post-content">
+                    <textarea name="create-post-content" id="create-post-content" placeholder="Content" minlength="2" cols="30" rows="10" required></textarea>
+                    <span class="error"></span>
+                </label>
+                <label for="create-post-img">
+                    <input type="text" name="create-post-img" id="create-post-img" placeholder="Image" minlength="4" required>
+                    <span class="error"></span>
+                </label>
+                <button type="submit" class="create-post-submit">Edit Post</button>
+            </form>
+        </div>
+    </div>
     <button class="top-btn">
         <a href="#"><i class="fa-solid fa-arrow-up"></i></a>
     </button>

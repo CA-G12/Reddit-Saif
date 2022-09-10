@@ -9,6 +9,7 @@ const addCommentRouter = require('./addComment');
 const getUserPostsRouter = require('./getUserPosts');
 const getUserInfoRouter = require('./getUserInfo');
 const deletePostRouter = require('./deletePost');
+const updatePostRouter = require('./updatePost');
 
 router.use(signInRouter);
 router.use(signUpRouter);
@@ -21,4 +22,5 @@ router.use(addCommentRouter);
 router.use(getUserPostsRouter);
 router.use(getUserInfoRouter);
 router.use(deletePostRouter);
+router.use(updatePostRouter);
 module.exports = router;
