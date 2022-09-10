@@ -55,7 +55,7 @@ const addPost = (e) => {
         myAlert(result.msg, 'error');
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => myAlert(err.msg || err.message || 'Something went wrong', 'error'));
 };
 // events;
 signOutBtn.addEventListener('click', signOutUser);

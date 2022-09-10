@@ -181,7 +181,7 @@ form input:invalid, form textarea:invalid{
 }
 /* posts */
 
-.posts{
+.posts, .user-likes{
     display: flex;
     flex-direction: column;
     gap: 1.7rem;
@@ -189,7 +189,7 @@ form input:invalid, form textarea:invalid{
     margin: 1.7rem;
     padding: 0 18rem;
 }
-.post{
+.post, .liked-post{
     width: 70%;
     margin: auto;
     background-color: #fff;
@@ -205,10 +205,10 @@ form input:invalid, form textarea:invalid{
     body{
         /* padding: 8rem 0; */
     }
-    .posts{
+    .posts,.user-likes{
         padding: 0 14rem;
     }
-    .post{
+    .post,.liked-post{
         width: 70%;
     }
 }
@@ -216,10 +216,10 @@ form input:invalid, form textarea:invalid{
     body{
         /* padding: 10rem 0; */
     }
-    .posts{
+    .posts,.user-likes{
         padding: 0 8rem;
     }
-    .post{
+    .post,.user-likes{
         width: 100%;
     }
 }
@@ -227,10 +227,10 @@ form input:invalid, form textarea:invalid{
     body{
         /* padding: 12rem 0; */
     }
-    .posts{
+    .posts, .liked-post{
         padding: 0 2rem;
     }
-    .post{
+    .post,.liked-post{
         width: 100%;
     }
     header nav{
@@ -246,13 +246,13 @@ form input:invalid, form textarea:invalid{
         width: 100%;
     }
 }
-.post .post-title{
+.post .post-title, .liked-post .post-title{
     border-bottom: 1px solid black;
     color: var(--main-color);
     font-size: 1.6rem;
     text-align: center;
 }
-.post .votes{
+.post .votes , .liked-post .votes{
     align-self: flex-start;
     display: flex;
     flex-direction: column;
@@ -261,26 +261,26 @@ form input:invalid, form textarea:invalid{
     font-size: 1.1rem;
     padding: 0 1rem;
 }
-.post .votes i{
+.post .votes i, .liked-post .votes i{
     cursor: pointer;
     font-size: 1.8rem;
     color: #80D0C7;
 }
-.post .votes .light{
+.post .votes .light, .liked-post .votes .light{
     color: var(--main-color);
 }
-.post .user-info{
+.post .user-info , .liked-post .user-info{
     display: flex;
     gap: 5px;
     align-self: flex-start;
     padding: 10px ;
     align-items: center;
 }
-.post img{
+.post img, .liked-post img{
     width: 100%;
     height: 100%;
 }
-.post .user-info img{
+.post .user-info img, .liked-post .user-info img{
     width: 50px;
     height: 50px;
     border-radius: 50%;

@@ -14,7 +14,7 @@ const signOutUser = () => {
 };
 const setUsernameInHeader = () => {
   username.textContent = localStorage.getItem('reddit_username') || 'Unknown';
-}
+};
 const myAlert = (msg, status) => {
   const p = document.createElement('p');
   p.textContent = msg;
@@ -61,9 +61,9 @@ const addLike = (e, getMyPosts) => {
         myAlert(result.msg, 'error');
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => myAlert(err.msg || err.message || 'Something went wrong','error'));
 };
-const renderData = (arr) => {
+const renderData = (arr, getMyPosts) => {
   posts.textContent = '';
   arr.forEach((ele) => {
     const post = document.createElement('div');
@@ -103,7 +103,7 @@ const renderData = (arr) => {
     postVotes.classList.add('votes');
     const likeIcon = document.createElement('i');
     likeIcon.classList.add('fa-solid', 'fa-caret-up', 'up');
-    likeIcon.addEventListener('click', (e) => addLike(e, getPosts));
+    likeIcon.addEventListener('click', (e) => addLike(e, getMyPosts));
     postVotes.appendChild(likeIcon);
     const numLikes = document.createElement('span');
     numLikes.classList.add('num-votes');
@@ -134,7 +134,7 @@ const renderData = (arr) => {
     submitBtn.type = 'submit';
     submitBtn.textContent = 'Add Comment';
     commentForm.appendChild(submitBtn);
-    commentForm.addEventListener('submit',(e) => addComment(e, getPosts));
+    commentForm.addEventListener('submit',(e) => addComment(e, getMyPosts));
     post.appendChild(commentForm);
 
     posts.appendChild(post);
@@ -165,7 +165,7 @@ const getUserLikes = () => {
         });
       }
     })
-    .catch((err) => console.log(err, 'hello'));
+    .catch((err) => myAlert(err.msg || err.message || 'Something went wrong', 'error'));
 };
 const createComment = (comment) => {
   const commentDiv = document.createElement('div');
@@ -221,8 +221,7 @@ const getPosts = () => {
         if (!result.msg.length) {
           displayMsg('There is no posts yet');
         } else {
-          console.log(result.msg);
-          renderData(result.msg);
+          renderData(result.msg, getPosts);
           getUserLikes();
           getComments();
         }
@@ -230,7 +229,7 @@ const getPosts = () => {
         displayMsg(result.msg);
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => myAlert(err.msg || err.message || 'Something went wrong', 'error'));
 };
 const addComment = (e, getMyPosts) => {
   e.preventDefault();
@@ -259,5 +258,5 @@ const addComment = (e, getMyPosts) => {
         myAlert(result.msg, 'error');
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => myAlert(err.msg || err.message || 'Something went wrong', 'error'));
 };

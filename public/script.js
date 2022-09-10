@@ -72,7 +72,7 @@ const signUpUser = (e) => {
         myAlert(result.msg, 'error');
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => myAlert(err.msg || err.message || 'Something went wrong','error'));
 };
 
 const signInUser = (e) => {
@@ -105,7 +105,7 @@ const signInUser = (e) => {
         myAlert(result.msg, 'error');
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => myAlert(err.msg || err.message || 'Something went wrong', 'error'));
 };
 // Events
 signUpBtn.addEventListener('click', () => generalToggle(signUpOverlay));
