@@ -1,6 +1,43 @@
 const generalToggle = (element) => {
   element.classList.toggle('show-overlay');
 };
+const deletePost = (e, getMyPosts) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  fetch(`/api/v1/post/${e.target.closest('.post').id}`, options)
+    .then((data) => data.json())
+    .then((result) => {
+      if (result.statusCode === 200) {
+        getMyPosts();
+        myAlert(result.msg, 'done');
+      } else {
+        myAlert(result.msg, 'error');
+      }
+    })
+    .catch((err) => myAlert(err.msg || err.message || 'Something went wrong', 'error'));
+};
+
+const editPost = (e) => {
+  console.log(e.target.closest('.post').id);
+};
+const setEditDeleteIcon = (post, getMyPosts) => {
+  const icons = document.createElement('div');
+  icons.classList.add('icons');
+  const deleteIcon = document.createElement('i');
+  deleteIcon.classList.add('fa-solid', 'fa-xmark', 'x-icon', 'delete-post-icon');
+  deleteIcon.addEventListener('click', (e) => deletePost(e, getMyPosts));
+  icons.appendChild(deleteIcon);
+  const editIcon = document.createElement('i');
+  editIcon.classList.add('fa-solid', 'fa-pen-to-square', 'edit-icon');
+  editIcon.addEventListener('click', (e) => editPost(e, getMyPosts));
+  icons.appendChild(editIcon);
+
+  post.appendChild(icons);
+};
 const showTopBtn = (element) => {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     element.classList.add('show-top-btn');
@@ -67,7 +104,7 @@ const addLike = (e, getMyPosts) => {
         myAlert(result.msg, 'error');
       }
     })
-    .catch((err) => myAlert(err.msg || err.message || 'Something went wrong','error'));
+    .catch((err) => myAlert(err.msg || err.message || 'Something went wrong', 'error'));
 };
 const renderData = (arr, getMyPosts) => {
   posts.textContent = '';
@@ -75,6 +112,9 @@ const renderData = (arr, getMyPosts) => {
     const post = document.createElement('div');
     post.classList.add('post');
     post.id = ele.post_id;
+    if (ele.canChange) {
+      setEditDeleteIcon(post, getMyPosts);
+    }
     const userInfo = document.createElement('div');
     userInfo.classList.add('user-info');
     const userImg = document.createElement('img');
@@ -140,7 +180,7 @@ const renderData = (arr, getMyPosts) => {
     submitBtn.type = 'submit';
     submitBtn.textContent = 'Add Comment';
     commentForm.appendChild(submitBtn);
-    commentForm.addEventListener('submit',(e) => addComment(e, getMyPosts));
+    commentForm.addEventListener('submit', (e) => addComment(e, getMyPosts));
     post.appendChild(commentForm);
 
     posts.appendChild(post);
@@ -152,18 +192,7 @@ const displayMsg = (msg) => {
   p.textContent = msg;
   posts.appendChild(p);
 };
-const setEditDeleteIcon = (post) => {
-  const icons = document.createElement('div');
-  icons.classList.add('icons');
-  const deleteIcon = document.createElement('i');
-  deleteIcon.classList.add('fa-solid', 'fa-xmark', 'x-icon', 'delete-post-icon');
-  icons.appendChild(deleteIcon);
-  const editIcon = document.createElement('i');
-  editIcon.classList.add('fa-solid', 'fa-pen-to-square', 'edit-icon');
-  icons.appendChild(editIcon);
 
-  post.appendChild(icons);
-};
 const getUserLikes = () => {
   fetch('/api/v1/userLikes')
     .then((data) => data.json())

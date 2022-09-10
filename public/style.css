@@ -330,3 +330,13 @@ form input:invalid, form textarea:invalid{
     height: 50px;
     border-radius: 50%;
 }
+.icons{
+    align-self: flex-end;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 2px;
+}
+.icons i{
+    cursor: pointer;
+    padding: 5px;
+}

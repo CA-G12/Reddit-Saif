@@ -1,5 +1,5 @@
 // Elements
-let posts = document.querySelector('.posts');
+const posts = document.querySelector('.posts');
 const username = document.querySelector('.username');
 const signOutBtn = document.querySelector('.sign-out-btn');
 const userInfo = document.querySelector('.info');
@@ -14,7 +14,8 @@ const getUserPosts = () => {
         if (!result.msg.length) {
           displayMsg('There is no posts yet');
         } else {
-          renderData(result.msg, getUserPosts);
+          const userPosts = result.msg.map((ele) => ({ ...ele, canChange: true }));
+          renderData(userPosts, getUserPosts);
           getUserLikes();
           getComments();
         }
@@ -69,7 +70,7 @@ const getUserInfo = () => {
 
 // events
 signOutBtn.addEventListener('click', signOutUser);
-document.addEventListener('scroll',() => showTopBtn(document.querySelector('.top-btn')));
+document.addEventListener('scroll', () => showTopBtn(document.querySelector('.top-btn')));
 setUsernameInHeader();
 getUserInfo();
 getUserPosts();
